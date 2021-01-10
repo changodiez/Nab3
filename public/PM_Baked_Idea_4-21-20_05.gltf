@@ -1,0 +1,163 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.4.40",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Idea",
+            "scale" : [
+                0.7055124044418335,
+                0.7055124044418335,
+                0.7055124044418335
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Dripping Idea",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                }
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Idea",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "Baked_Idea_Normal",
+            "uri" : "Baked_Idea_Normal.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Baked_Idea_Col_02",
+            "uri" : "Baked_Idea_Col_02.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Baked_Idea_Rough",
+            "uri" : "Baked_Idea_Rough.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 44895,
+            "max" : [
+                1.060194492340088,
+                2.808717966079712,
+                1.076718807220459
+            ],
+            "min" : [
+                -1.0606284141540527,
+                -0.10684043914079666,
+                -1.0441043376922607
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 44895,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 44895,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 254976,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 538740,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 538740,
+            "byteOffset" : 538740
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 359160,
+            "byteOffset" : 1077480
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 509952,
+            "byteOffset" : 1436640
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9986
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 1946592,
+            "uri" : "PM_Baked_Idea_4-21-20_05.bin"
+        }
+    ]
+}

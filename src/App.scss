@@ -1,0 +1,161 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // background: #1d1c1c;
+  background: #000000;
+  transition: 0.4s ease-in-out;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.scrollArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.container {
+  position: absolute;
+  z-index: 990;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.toggle-btn {
+  position: absolute;
+  top: 10vh;
+  left: 6%;
+  cursor: pointer;
+  z-index: 99999;
+
+  span {
+    transition: all ease 400ms;
+    position: fixed;
+    display: block;
+    width: 5vh;
+    height: 5vh;
+    background-color: rgb(146, 146, 146);
+  }
+  .abierto1 {
+    border-radius: 50%;   
+ }
+ .cerrado1 {
+  height: 0.6vh;
+  transform:translateY(200%) rotate(90deg) ;
+ }
+ .cerrado2 {
+  height: 0.6vh;
+  transform: translateY(200%)rotate(0deg) ;
+ 
+}
+
+}
+ 
+.nav {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  // background-color: rgb(255, 255, 255);
+  transition: 400ms all;
+}
+
+.nav-content {
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  transition: 100ms all;
+}
+
+.nav-links ul {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  height: 100%;
+  margin-top: 1rem;
+}
+
+.nav-links li {
+  list-style: none;
+  display: inline-block;
+  margin: calc(100vh / 80) 5vw;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  font-weight: bolder;
+  color: rgb(0, 0, 0);
+  font-size: 8em;
+  text-transform: uppercase;
+}
+
+.nav-links li a:hover {
+  color: rgb(41, 41, 41);
+}
+
+
+.title {
+  font-size: 10rem;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  color: #fff;
+  span {
+    display: block;
+  }
+  @media (max-width: 1440px) {
+    font-size: 8rem;
+  }
+}
+
+.loading {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: #171717;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-bar-container {
+  width: 100px;
+  height: 32px;
+  background: #272727;
+}
+
+.loading-bar {
+  height: 32px;
+  background: #0c0301;
+}
