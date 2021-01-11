@@ -56,6 +56,7 @@ const Model = ({ mouse }) => {
 
   useFrame(() => {
     rotY.current.rotation.y += 0.006;
+
     if (mesh.current) {
       mesh.current.position.x = lerp(
         mesh.current.position.x,
@@ -110,8 +111,8 @@ function Swarm({ count, mouse }) {
       let { t, factor, speed, xFactor, yFactor, zFactor } = particle;
       // There is no sense or reason to any of this, just messing around with trigonometric functions
       t = particle.t += speed / 2;
-      const a = Math.cos(t) + Math.sin(t * 1) / 10;
-      const b = Math.sin(t) + Math.cos(t * 2) / 10;
+      const a = Math.cos(t) + Math.sin(t * 1) / 100;
+      const b = Math.sin(t) + Math.cos(t * 2) / 100;
       const s = Math.cos(t);
       particle.mx += (mouse.current[0] - particle.mx) * 0.01;
       particle.my += (mouse.current[1] * -1 - particle.my) * 0.01;
@@ -170,7 +171,9 @@ function Effect({ down }) {
   );
 }
 
-function MoveLigth({ count, mouse }) {
+//Ligh with mouse
+
+function MoveLigth({ mouse }) {
   const light = useRef();
   const { size, viewport } = useThree();
   const aspect = size.width / viewport.width;
@@ -196,20 +199,31 @@ const App = () => {
     []
   );
 
-  //   function glitch() {
-  //     let togle = setInterval(glitcher, 4000  );
+  // RANDOM GLITCH
 
-  //     function glitcher() {
-  //    set(true)
-  //    setTimeout(()=>set(false), 200)
-  //    console.log(togle)
-  // if(togle > 6) {
-  // clearInterval(togle)
-  // }
-  //     }
-  //   }
+  const [randomTimer, setRandomTimer] = useState(3000);
 
-  // glitch()
+  const generate = () => {
+    let num = randomIntFromInterval(50, 300);
+    set(2);
+    const switcher = () => {
+      set(false);
+    };
+    setTimeout(switcher, num);
+    let numTimer = randomIntFromInterval(6000, 15000);
+    setRandomTimer(numTimer);
+    console.log(down);
+  };
+
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  console.log(randomTimer);
+
+  useEffect(() => {
+    setTimeout(generate, randomTimer);
+  }, [randomTimer]);
 
   return (
     <>
@@ -225,6 +239,8 @@ const App = () => {
         <Suspense fallback={null}>
           <Html fullscreen>
             <Nav />
+          </Html>
+          <Html fullscreen position={[0, 0.5, 0]}>
             <div className="container">
               <h1 className="title">Na.B3</h1>
             </div>
