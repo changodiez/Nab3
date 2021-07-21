@@ -20,12 +20,22 @@ import { GlitchPass } from "./assets/effects/Glitchpass.js";
 import { WaterPass } from "./assets/effects/Waterpass.js";
 import lerp from "lerp";
 
+// Web components
+import Contact from "./webcomponents/Contact";
+import About from "./webcomponents/About";
+import Projects from "./webcomponents/Projects.jsx";
+
 // Styles
 import "./App.scss";
 
 import { Suspense } from "react";
 import Lights from "./components/Lights";
 import Nav from "./components/Nav.js";
+
+// Scroll
+import { Section } from "./components/section";
+import state from "./components/state";
+import { useInView } from "react-intersection-observer";
 
 // soft Shadows
 softShadows();
@@ -55,32 +65,33 @@ const Model = ({ mouse }) => {
   const aspect = size.width / viewport.width;
 
   useFrame(() => {
-    rotY.current.rotation.y += 0.006;
+    rotY.current.rotation.y += 0.0006;
 
-    if (mesh.current) {
-      mesh.current.position.x = lerp(
-        mesh.current.position.x,
-        mouse.current[0] / aspect / 20,
-        0.1
-      );
-      mesh.current.rotation.x = lerp(
-        mesh.current.rotation.x,
-        0 + mouse.current[1] / aspect / 50,
-        0.6
-      );
-      mesh.current.rotation.y = lerp(
-        mesh.current.position.x,
-        mouse.current[0] / aspect / 10,
-        0.1
-      );
-    }
+     /*  if (mesh.current) {
+        rotY.current.position.x = lerp(
+          rotY.current.position.x,
+          mouse.current[0] / aspect / 20,
+          0.1
+        );
+        rotY.current.rotation.x = lerp(
+          rotY.current.rotation.x,
+          0 + mouse.current[1] / aspect / 50,
+          0.6
+        );
+        rotY.current.rotation.y = lerp(
+          rotY.current.position.x,
+          mouse.current[0] / aspect / 10,
+          0.1
+        );
+      }; */
   });
   return (
     <>
       <group ref={rotY}>
-        <pointLight distance={40} intensity={8} color="lightblue"></pointLight>
-        <mesh ref={mesh} position={[0, -1.5, 0]} scale={[1.5, 1.5, 1.5]}>
+        
+        <mesh ref={mesh} position={[0, -3.5, 0]} scale={[5, 5, 5]}>
           <Ball />
+          <pointLight distance={60} intensity={10} color="lightblue"></pointLight>
         </mesh>
       </group>
     </>
@@ -142,29 +153,111 @@ function Swarm({ count, mouse }) {
   return (
     <>
       <instancedMesh ref={mesh} args={[null, null, count]}>
-        <dodecahedronBufferGeometry attach="geometry" args={[0.02, 0]} />
+        <dodecahedronBufferGeometry attach="geometry" args={[0.2, 0]} />
         <meshStandardMaterial attach="material" color="#050505" />
       </instancedMesh>
     </>
   );
 }
 
+const Home = ({ domContent, children, bgColor, position, mouse }) => {
+  const mesh = useRef();
+  const rotY = useRef();
+  const { size, viewport } = useThree();
+  const aspect = size.width / viewport.width;
+
+  let scale;
+  if (size.width < 600) {
+    scale = 8.5;
+  } else {
+    scale = size.width / 150;
+  }
+
+  useFrame(() => {
+    rotY.current.rotation.y += 0.006;
+    if (mesh.current) {
+      mesh.current.position.x = lerp(
+        mesh.current.position.x,
+        mouse.current[0] / aspect / 20,
+        0.9
+      );
+      mesh.current.rotation.x = lerp(
+        mesh.current.rotation.x,
+        0 + mouse.current[1] / aspect / -10,
+        0.4
+      );
+      mesh.current.rotation.y = lerp(
+        mesh.current.position.x,
+        mouse.current[0] / aspect / 10,
+        0.2
+      );
+    }
+  });
+
+  const [refItem, inView] = useInView({
+    threshold: 0,
+  });
+  useEffect(() => {
+    inView && (document.body.style.background = bgColor);
+  }, [inView]);
+  return (
+    <Section factor={1.5} offset={1}>
+      <group position={[0, position, 0]}>
+        <mesh ref={rotY} position={[0, -10, 0]} scale={[scale, scale, scale]}>
+          <Model mouse={mouse} />
+          <Swarm mouse={mouse} count={2000} />
+        </mesh>
+        <Html fullscreen portal={domContent}>
+          <div ref={refItem} className="container">
+            <h1 className="title">{children}</h1>
+          </div>
+        </Html>
+      </group>
+    </Section>
+  );
+};
+
+const HTMLContent = ({ domContent, children, bgColor, position }) => {
+  const ref = useRef();
+  useFrame(() => (ref.current.rotation.y += 0.01));
+  const [refItem, inView] = useInView({
+    threshold: 0,
+  });
+  useEffect(() => {
+    inView && (document.body.style.background = bgColor);
+  }, [inView]);
+  return (
+    <Section factor={1.5} offset={1}>
+      <group position={[0, position, 0]}>
+        <mesh ref={ref} position={[0, -35, 0]} scale={[100, 100, 100]}></mesh>
+        <Html fullscreen portal={domContent}>
+          <div ref={refItem} className="container">
+            <div>{children}</div>
+          </div>
+        </Html>
+      </group>
+    </Section>
+  );
+};
+
 //Effects
 
 function Effect({ down }) {
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
-  const aspect = useMemo(() => new THREE.Vector2(size.width, size.height), [
-    size,
-  ]);
-  useEffect(() => void composer.current.setSize(size.width, size.height), [
-    size,
-  ]);
+  const aspect = useMemo(
+    () => new THREE.Vector2(size.width, size.height),
+    [size]
+  );
+  useEffect(
+    () => void composer.current.setSize(size.width, size.height),
+    [size]
+  );
   useFrame(() => composer.current.render(), 1);
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
-      <unrealBloomPass attachArray="passes" args={[aspect, 0.8, 0.2, 0]} />
+      {/* <unrealBloomPass attachArray="passes" args={[aspect, 0.8, 0.2, 0]} /> */}
       <filmPass attachArray="passes" args={[0.3, 0.4, 1500, false]} />
       <glitchPass attachArray="passes" factor={down ? 0.6 : 0} />
     </effectComposer>
@@ -182,17 +275,26 @@ function MoveLigth({ mouse }) {
     light.current.position.set(
       mouse.current[0] / aspect,
       -mouse.current[1] / aspect,
-      2
+      50
     );
   });
+
   return (
-    <pointLight ref={light} distance={5} intensity={8} color="lightblue" />
+    <pointLight ref={light} distance={60} intensity={7} color="lightblue" />
   );
 }
 
 const App = () => {
+  const [events, setEvents] = useState();
+
   const [down, set] = useState(false);
   const mouse = useRef([300, -200]);
+  const domContent = useRef();
+
+  const scrollArea = useRef();
+  const onScroll = (e) => (state.top.current = e.target.scrollTop);
+  useEffect(() => void onScroll({ target: scrollArea.current }), []);
+
   const onMouseMove = useCallback(
     ({ clientX: x, clientY: y }) =>
       (mouse.current = [x - window.innerWidth / 2, y - window.innerHeight / 2]),
@@ -212,14 +314,12 @@ const App = () => {
     setTimeout(switcher, num);
     let numTimer = randomIntFromInterval(6000, 15000);
     setRandomTimer(numTimer);
-    console.log(down);
   };
 
   function randomIntFromInterval(min, max) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-  console.log(randomTimer);
 
   useEffect(() => {
     setTimeout(generate, randomTimer);
@@ -229,29 +329,67 @@ const App = () => {
     <>
       <Loader />
       <Canvas
+        concurrent
         colorManagement
-        shadowMap
-        camera={{ fov: 20, position: [0, -1, 10] }}
-        onMouseMove={onMouseMove}
-        onMouseUp={() => set(false)}
-        onMouseDown={() => set(true)}
+        camera={{ position: [0, 0, 120], fov: 70 }}
       >
         <Suspense fallback={null}>
-          <Html fullscreen>
+          {/* <Html fullscreen portal={domContent} >
             <Nav />
-          </Html>
-          <Html fullscreen position={[0, 0.5, 0]}>
-            <div className="container">
-              <h1 className="title">Na.B3</h1>
-            </div>
-          </Html>
+          </Html>   */}
+
           <Lights />
-          <Model mouse={mouse} />
-          <Effect down={down} />
           <MoveLigth mouse={mouse} />
-          <Swarm count={20000} mouse={mouse} />
+          <Home
+            domContent={domContent}
+            bgColor="#000000"
+            position={250}
+            mouse={mouse}
+          >
+            <span className="title">Na.B3</span>
+          </Home>
+          <HTMLContent
+            domContent={domContent}
+            bgColor="#636567"
+            position={0}
+            mouse={mouse}
+          >
+            <About />
+          </HTMLContent>
+          <HTMLContent
+            domContent={domContent}
+            bgColor="#F4F6F7"
+            position={-250}
+            mouse={mouse}
+          >
+            <Projects />
+          </HTMLContent>
+          <HTMLContent
+            domContent={domContent}
+            bgColor="#ffffff"
+            position={-500}
+            mouse={mouse}
+          >
+            <Contact />
+          </HTMLContent>
+          <Effect down={down} />
         </Suspense>
       </Canvas>
+
+      <div
+        className="scrollArea"
+        id="c"
+        ref={scrollArea}
+        onScroll={onScroll}
+        {...events}
+        onPointerOut={() => set(false)}
+        onPointerMove={onMouseMove}
+        onPointerUp={() => set(false)}
+        onPointerDown={() => set(true)}
+      >
+        <div style={{ position: "sticky", top: 0 }} ref={domContent} />
+        <div style={{ height: `${state.pages * 100}vh`, width: "100%" }} />
+      </div>
     </>
   );
 };
