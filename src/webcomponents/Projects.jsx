@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import { BrowserRouter as Router } from "react-router-dom";
 // glslify babel-plugin-glsl glsl-noise
 // Install also glsl lint glsl literall
 import data from "../assets/data.json";
@@ -19,6 +18,7 @@ function Projects() {
           
         </ul>
       </div>
+      
       </Router>
     </>
   );

@@ -7,6 +7,9 @@ import React, {
   useCallback,
 } from "react";
 import { Suspense } from "react";
+import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
+import Page from "./pages/Page";
+
 
 //R3F
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
@@ -57,7 +60,7 @@ extend({
 // Model
 
 const Ball = (props) => {
-  const gltf = useGLTF( "/PM_Baked_Idea_4-21-20_05.gltf")
+  const gltf = useGLTF("/PM_Baked_Idea_4-21-20_05.gltf");
   return <primitive object={gltf.scene} dispose={null} />;
 };
 
@@ -290,7 +293,7 @@ function MoveLigth({ mouse }) {
   );
 }
 
-const App = () => {
+const Scene = () => {
   const [events, setEvents] = useState();
 
   const [down, set] = useState(false);
@@ -333,8 +336,6 @@ const App = () => {
 
   // hover sobre projects
 
-
-
   return (
     <>
       <Loader />
@@ -346,7 +347,7 @@ const App = () => {
         <Suspense fallback={null}>
           <Lights />
           <MoveLigth mouse={mouse} />
-          
+
           <Home
             domContent={domContent}
             bgColor="#000000"
@@ -372,7 +373,7 @@ const App = () => {
           >
             <Projects />
           </HTMLContent>
-                  <HTMLContent
+          <HTMLContent
             domContent={domContent}
             bgColor="#ffffff"
             position={-500}
@@ -402,5 +403,21 @@ const App = () => {
     </>
   );
 };
+
+function App() {
+
+
+
+
+  return (
+    <>
+      <Router>
+        
+        <Scene />
+        <Route path="/:id" render={(props) => <Page {...props} />} />
+      </Router>
+    </>
+  );
+}
 
 export default App;
