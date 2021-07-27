@@ -27,7 +27,3 @@ canvas {
   overflow: auto;
 }
 
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

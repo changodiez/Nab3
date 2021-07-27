@@ -1,5 +1,12 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a:link, a:visited, a:active {
+  text-decoration:none;
+  color: none;
 }
 
 body {
@@ -172,6 +179,7 @@ body,
     font-size: 1.5rem;
     color: #000000;
     text-transform: uppercase;
+    padding: 1rem;
   }
   p {
     font-size: 1.4rem;
@@ -180,49 +188,69 @@ body,
     font-weight: 500;
     padding-top: 5px;
   }
+
+  @media (max-width: 600px) {
+    .text-container {
+      flex-direction: column;
+    }
+
+    p {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+  }
 }
 
 #projects {
-  .menu__item-link,
-.marquee span {
-	white-space: nowrap;
-	font-size: 6vw;
-	line-height: 1.2;
-	font-weight: 600;
-	padding: 1vh 1vw 0;
-	text-transform: uppercase;
-}
+  ul {
+    width: 100%;
+    z-index: -99999;
+  }
 
-.marquee span {
-	text-align: center;
-	color: var(--marquee-text);
-	font-weight: 400;
-}
+  li {
+    list-style: none;
+    
 
-.marquee__img {
-	width: 15vw;
-	height: 70%;
-	margin: 0 2vw;
-	border-radius: 5vw;
-	background-size: cover;
-	background-position: 50% 50%;
-}
+    h2 {
+      padding: 1rem 2rem;
+      font-size: 5rem;
+      text-decoration: none !important;
+      color: #606063;
+    }
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 3rem;
+      }
+    }
 
-}
+    li,
+    h2:hover {
+      transition: all ease-in 0.2s;
+      color:black;
+    }
+  }
 
-#contacto {
-  h3 {
-    font-size: medium;
-    color: #000000;
+  #contacto {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h3 {
+      font-size: medium;
+      color: red;
+    }
+
+    footer {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      h3 {
+        font-size: medium !important;
+      }
+    }
   }
 }
 
-footer {
-  display: none;
-}
-
-@media (max-width: 600px) {
-  h3 {
-    font-size: medium !important;
-  }
-}

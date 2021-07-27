@@ -1,0 +1,40 @@
+{
+    "projects": [
+        {
+            "title": "Tensegrity",
+            "link": "tensegrity",
+            "description": "aca va la descripción",
+            "images": ["image1", "image2", "image3"]
+        },
+        {
+            "title": "OPP33",
+            "link": "OPP33",
+            "description": "aca va la descripción",
+            "images": ["image1", "image2", "image3"]
+        },
+        {
+            "title": "Libertadore",
+            "link": "libertadore",
+            "description": "aca va la descripción",
+            "images": ["image1", "image2", "image3"]
+        },
+        {
+            "title": "ER..VA62",
+            "link": "er-va62",
+            "description": "aca va la descripción",
+            "images": ["image1", "image2", "image3"]
+        },
+        {
+            "title": "OBJ.1",
+            "link": "obj-1",
+            "description": "aca va la descripción",
+            "images": ["image1", "image2", "image3"]
+        },
+        {
+            "title": "OBJ.2",
+            "link": "obj-2",
+            "description": "aca va la descripción",
+            "images": ["image1", "image2", "image3"]
+        }
+    ]
+}

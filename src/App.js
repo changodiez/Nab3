@@ -6,10 +6,14 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
+import { Suspense } from "react";
+
 //R3F
-import { Canvas, useFrame, extend, useThree } from "react-three-fiber";
+import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
+
 // Deai - R3F
-import { softShadows, useGLTFLoader, Loader, Html } from "drei";
+import { softShadows, useGLTF, Html, Loader } from "@react-three/drei";
+
 //Effects
 import { EffectComposer } from "./assets/postprocessing/EffectComposer.js";
 import { ShaderPass } from "./assets/postprocessing/ShaderPass.js";
@@ -28,9 +32,8 @@ import Projects from "./webcomponents/Projects.jsx";
 // Styles
 import "./App.scss";
 
-import { Suspense } from "react";
 import Lights from "./components/Lights";
-import Nav from "./components/Nav.js";
+import Plane from "./components/Plane.js";
 
 // Scroll
 import { Section } from "./components/section";
@@ -54,7 +57,7 @@ extend({
 // Model
 
 const Ball = (props) => {
-  const gltf = useGLTFLoader("/PM_Baked_Idea_4-21-20_05.gltf", true);
+  const gltf = useGLTF( "/PM_Baked_Idea_4-21-20_05.gltf")
   return <primitive object={gltf.scene} dispose={null} />;
 };
 
@@ -67,7 +70,7 @@ const Model = ({ mouse }) => {
   useFrame(() => {
     rotY.current.rotation.y += 0.0006;
 
-     /*  if (mesh.current) {
+    /*  if (mesh.current) {
         rotY.current.position.x = lerp(
           rotY.current.position.x,
           mouse.current[0] / aspect / 20,
@@ -88,10 +91,13 @@ const Model = ({ mouse }) => {
   return (
     <>
       <group ref={rotY}>
-        
         <mesh ref={mesh} position={[0, -3.5, 0]} scale={[5, 5, 5]}>
           <Ball />
-          <pointLight distance={60} intensity={10} color="lightblue"></pointLight>
+          <pointLight
+            distance={60}
+            intensity={10}
+            color="lightblue"
+          ></pointLight>
         </mesh>
       </group>
     </>
@@ -231,7 +237,7 @@ const HTMLContent = ({ domContent, children, bgColor, position }) => {
       <group position={[0, position, 0]}>
         <mesh ref={ref} position={[0, -35, 0]} scale={[100, 100, 100]}></mesh>
         <Html fullscreen portal={domContent}>
-          <div ref={refItem} className="container">
+          <div ref={refItem}>
             <div>{children}</div>
           </div>
         </Html>
@@ -280,7 +286,7 @@ function MoveLigth({ mouse }) {
   });
 
   return (
-    <pointLight ref={light} distance={60} intensity={7} color="lightblue" />
+    <pointLight ref={light} distance={200} intensity={150} color="lightblue" />
   );
 }
 
@@ -325,6 +331,10 @@ const App = () => {
     setTimeout(generate, randomTimer);
   }, [randomTimer]);
 
+  // hover sobre projects
+
+
+
   return (
     <>
       <Loader />
@@ -334,12 +344,9 @@ const App = () => {
         camera={{ position: [0, 0, 120], fov: 70 }}
       >
         <Suspense fallback={null}>
-          {/* <Html fullscreen portal={domContent} >
-            <Nav />
-          </Html>   */}
-
           <Lights />
           <MoveLigth mouse={mouse} />
+          
           <Home
             domContent={domContent}
             bgColor="#000000"
@@ -350,12 +357,13 @@ const App = () => {
           </Home>
           <HTMLContent
             domContent={domContent}
-            bgColor="#636567"
+            bgColor="#E5E7E9"
             position={0}
             mouse={mouse}
           >
             <About />
           </HTMLContent>
+
           <HTMLContent
             domContent={domContent}
             bgColor="#F4F6F7"
@@ -364,7 +372,7 @@ const App = () => {
           >
             <Projects />
           </HTMLContent>
-          <HTMLContent
+                  <HTMLContent
             domContent={domContent}
             bgColor="#ffffff"
             position={-500}
@@ -372,6 +380,7 @@ const App = () => {
           >
             <Contact />
           </HTMLContent>
+          <Plane mouse={mouse} />
           <Effect down={down} />
         </Suspense>
       </Canvas>
