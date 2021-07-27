@@ -51,8 +51,8 @@ const Plane = ({ mouse }) => {
       if (
         mesh.current.position.x <= mouse.current[0] / aspect - 1 ||
         (mesh.current.position.x >= mouse.current[0] / aspect + 1 &&
-          mesh.current.position.y <= (mouse.current[1] * -1) / aspect - 1) ||
-        mesh.current.position.y >= (mouse.current[1] * -1) / aspect + 1
+          mesh.current.position.y <= (mouse.current[1] ) / aspect - 1) ||
+        mesh.current.position.y >= (mouse.current[1] ) / aspect + 1
       ) {
         ref.current.uNoiseAmp = lerp(
           ref.current.uNoiseAmp,
