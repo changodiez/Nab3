@@ -7,8 +7,6 @@ import data from "../assets/data.json";
 
 import Item from "./Item";
 
-data.projects.map((project, index) => console.log(project.title));
-
 function Projects() {
   return (
     <>

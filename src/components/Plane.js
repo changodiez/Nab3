@@ -1,31 +1,21 @@
 import * as THREE from "three";
 import React, { useRef, Suspense, useState } from "react";
-import {
-  Canvas,
-  extend,
-  useFrame,
-  useLoader,
-  useThree,
-} from "@react-three/fiber";
+import { extend, useFrame, useLoader, useThree } from "@react-three/fiber";
 import lerp from "lerp";
 import { shaderMaterial } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
 
 // IMAGES
-import images from "./images"
+import images from "./images";
 
 const Plane = ({ mouse }) => {
-  function lerp(start, end, t) {
-    return start * (1 - t) + end * t;
-  }
-
   const mesh = useRef();
   const ref = useRef();
   const { size, viewport } = useThree();
   const aspect = size.width / viewport.width;
 
   const projects = document.querySelector("ul");
- 
+
   const [hovered, setHovered] = useState(false);
 
   if (projects) {
@@ -44,11 +34,40 @@ const Plane = ({ mouse }) => {
   useFrame(({ clock }) => {
     if (mesh.current) {
       ref.current.uTime = 0;
-      mesh.current.position.x = mouse.current[0] / aspect;
-      mesh.current.position.y = (mouse.current[1] / aspect) * -1;
+      mesh.current.position.x = lerp(
+        mesh.current.position.x,
+        mouse.current[0] / aspect,
+        0.1
+      );
+      mesh.current.position.y = lerp(
+        mesh.current.position.y,
+        (mouse.current[1] / aspect) * -1,
+        0.1
+      );
       hovered
         ? (ref.current.uAlpha = lerp(ref.current.uAlpha, 1.0, 0.1))
         : (ref.current.uAlpha = lerp(ref.current.uAlpha, 0.0, 0.1));
+
+      if (
+        mesh.current.position.x <= mouse.current[0] / aspect - 1 ||
+        (mesh.current.position.x >= mouse.current[0] / aspect + 1 &&
+          mesh.current.position.y <= (mouse.current[1] * -1) / aspect - 1) ||
+        mesh.current.position.y >= (mouse.current[1] * -1) / aspect + 1
+      ) {
+        ref.current.uNoiseAmp = lerp(
+          ref.current.uNoiseAmp,
+          0.02 + (mouse.current[0] * mouse.current[1] * -0.00002),
+          0.1
+        );
+        ref.current.uNoiseFreq = lerp(
+          ref.current.uNoiseFreq,
+          0.3 + (mouse.current[0] * mouse.current[1] * 0.00005),
+          0.1
+        );
+      } else {
+        ref.current.uNoiseAmp = lerp(ref.current.uNoiseAmp, 0.0, 0.1);
+        ref.current.uNoiseFreq = lerp(ref.current.uNoiseFreq, 0.0, 0.1);
+      }
     }
   });
 
@@ -115,7 +134,7 @@ const Plane = ({ mouse }) => {
   return (
     <>
       <mesh ref={mesh}>
-        <planeBufferGeometry attach="geometry" args={[60, 90, 16, 16]} />
+        <planeBufferGeometry attach="geometry" args={[60, 90, 24, 24]} />
         <waveShaderMaterial
           ref={ref}
           attach="material"
