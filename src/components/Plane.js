@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { extend, useFrame, useLoader, useThree } from "@react-three/fiber";
 import lerp from "lerp";
 import { shaderMaterial } from "@react-three/drei";
@@ -50,18 +50,18 @@ const Plane = ({ mouse }) => {
 
       if (
         (mesh.current.position.x <= mouse.current[0] / aspect - 1 ||
-        mesh.current.position.x >= mouse.current[0] / aspect + 1) &&
-          (mesh.current.position.y <= (mouse.current[1] * -1 ) / aspect - 1 ||
-        mesh.current.position.y >= (mouse.current[1] * -1 ) / aspect + 1)
+          mesh.current.position.x >= mouse.current[0] / aspect + 1) &&
+        (mesh.current.position.y <= (mouse.current[1] * -1) / aspect - 1 ||
+          mesh.current.position.y >= (mouse.current[1] * -1) / aspect + 1)
       ) {
         ref.current.uNoiseAmp = lerp(
           ref.current.uNoiseAmp,
-          0.02 + (mouse.current[0] * mouse.current[1] * -0.00002),
+          0.02 + mouse.current[0] * mouse.current[1] * -0.00002,
           0.1
         );
         ref.current.uNoiseFreq = lerp(
           ref.current.uNoiseFreq,
-          0.3 + (mouse.current[0] * mouse.current[1] * 0.00005),
+          0.3 + mouse.current[0] * mouse.current[1] * 0.00005,
           0.1
         );
       } else {
@@ -119,33 +119,11 @@ const Plane = ({ mouse }) => {
   );
   extend({ WaveShaderMaterial });
 
-
-  var textureManager = new THREE.LoadingManager();
-  textureManager.onProgress = function ( item, loaded, total ) {
-      // this gets called after any item has been loaded
-  };
-  
-  textureManager.onLoad = function () {
-      // all textures are loaded
-      // ...
-  };
-  
- /*  
- esto lo tengo que ver para precarga de imagenes 
- 
- var textureLoader = new THREE.ImageLoader( textureManager );
-  var myTextureArray = [];
-  var myTexture = new THREE.Texture();
-  myTextureArray.push( myTexture ); */
-  
-
-  
   const [image, setImage] = useState(images[0]);
 
   const [texture] = useLoader(THREE.TextureLoader, [image]);
 
-  let links = document.querySelectorAll("li");
-
+ 
   links.forEach((link, idx) => {
     link.addEventListener("mouseover", () => {
       setImage(images[idx]);

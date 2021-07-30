@@ -48,19 +48,19 @@ function Page() {
               title="vimeo-player"
               src={pag.video}
               width={w}
-              height={h}
-              frameborder="0"
-              allowfullscreen
+              height= {mobile ? "100%" : h}
+                           frameBorder="0"
+              allowFullScreen
             ></iframe>
           </div>
         ) : null}
        
         <div className="galeria">
-          {pag.images.slice(1).map((image, index) => (
+          {pag.images.slice(1).map((image, key) => (
             <div class="contenedor-modal">
               <img
                 src={require(`../assets/images/${pag.link}/${image}.jpg`)}
-                alt={index}
+                alt={key}
               />
             </div>
           ))}
