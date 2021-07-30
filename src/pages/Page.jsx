@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 
 import data from "../assets/data.json";
+import backArrow from "../assets/back-arrow.png";
 
 function Page() {
   let params = useParams().id;
@@ -18,16 +19,18 @@ function Page() {
   let mobile = false;
 
   if (w < 600) {
-    mobile = true
+    mobile = true;
   }
 
   return (
     <div id={mobile ? "page-mobile" : "page"}>
       <nav>
-        <Link to="/">Volver</Link>
+        <Link to="/">
+          <img id="arrow" src={backArrow} alt="" />
+        </Link>
       </nav>
       <div className="info">
-        <div className= "hero">
+        <div className="hero">
           <div className="hero-left">
             <div className="title">{pag.title} </div>
             <div className="comentario">{pag.comentario}</div>
@@ -48,13 +51,13 @@ function Page() {
               title="vimeo-player"
               src={pag.video}
               width={w}
-              height= {mobile ? "100%" : h}
-                           frameBorder="0"
+              height={mobile ? "100%" : h}
+              frameBorder="0"
               allowFullScreen
             ></iframe>
           </div>
         ) : null}
-       
+
         <div className="galeria">
           {pag.images.slice(1).map((image, key) => (
             <div class="contenedor-modal">

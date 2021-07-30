@@ -12,11 +12,11 @@ a:active {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   // background: #1d1c1c;
-  background: #000000;
+  background: #0c0301;
   transition: 0.4s ease-in-out;
 }
 
@@ -91,6 +91,50 @@ body,
 
 #about {
   display: flex;
+  flex-direction: row;
+  margin: auto;
+  max-width: 80%;
+
+  .text-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  h3 {
+    font-size: 4rem;
+    color: #0c0301;
+    text-transform: uppercase;
+    padding: 1rem 0;
+    font-weight: 100;
+  }
+  p {
+    font-size: 2.1rem;
+    color: #0c0301;
+    text-align: right;
+    max-width: 80%;
+    font-weight: 500;
+    padding-top: 5px;
+    margin: auto;
+  }
+
+  @media (max-width: 600px) {
+    .text-container {
+      flex-direction: column;
+    }
+
+    p {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+  }
+}
+
+.display-none {
+  display: none;
+}
+
+#about-mobile {
+  display: flex;
   flex-direction: column;
   margin: auto;
   max-width: 80%;
@@ -101,17 +145,19 @@ body,
     justify-content: space-between;
   }
   h3 {
-    font-size: 1.5rem;
-    color: #000000;
+    font-size: 2rem;
+    color: #0c0301;
     text-transform: uppercase;
     padding: 1rem 0;
+    font-weight: 100;
   }
   p {
-    font-size: 1.4rem;
-    color: #000000;
-    max-width: 48%;
+    color: #0c0301;
+    text-align: left;
+    max-width: 80%;
     font-weight: 500;
     padding-top: 5px;
+    margin: auto;
   }
 
   @media (max-width: 600px) {
@@ -152,7 +198,7 @@ body,
     li,
     h2:hover {
       transition: all ease-in 0.2s;
-      color: black;
+      color: #0c0301;
     }
   }
 }
@@ -163,8 +209,13 @@ body,
   display: flex;
   flex-direction: column;
   color: whitesmoke;
-  background-color: black;
+  background-color: #0c0301;
   overflow-y: scroll !important;
+
+  #arrow {
+    width: 45px;
+
+  }
 
   .video-container {
     display: flex;
@@ -180,6 +231,7 @@ body,
     display: flex;
     flex-direction: column;
     margin: 1rem;
+    margin-top: 2.5rem;
     max-width: 100%;
   }
 
@@ -232,7 +284,7 @@ body,
 
   .description {
     font-size: 1rem;
-    padding: 1rem 0;  
+    padding: 1rem 0;
   }
 
   .galeria {
@@ -243,7 +295,7 @@ body,
 
     .contenedor-modal {
       padding: 1rem 0;
-      margin:auto;
+      margin: auto;
     }
 
     img {
@@ -259,8 +311,12 @@ body,
   display: flex;
   flex-direction: row;
   color: whitesmoke;
-  background-color: black;
+  background-color: #0c0301;
   overflow-y: scroll !important;
+
+  #arrow {
+    width: 45px;
+  }
 
   .video-container {
     display: flex;
@@ -354,7 +410,7 @@ body,
 
   h3 {
     font-size: medium;
-    color: black;
+    color: #0c0301;
   }
 
   footer {

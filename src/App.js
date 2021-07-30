@@ -9,7 +9,6 @@ import React, {
 import { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 
-
 //R3F
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 
@@ -30,7 +29,6 @@ import Contact from "./webcomponents/Contact";
 import About from "./webcomponents/About";
 import Projects from "./webcomponents/Projects.jsx";
 import Page from "./pages/Page";
-
 
 // Styles
 import "./App.scss";
@@ -66,13 +64,13 @@ const Ball = (props) => {
 const Model = ({ mouse }) => {
   const mesh = useRef();
   const rotY = useRef();
-/*   const { size, viewport } = useThree(); */
-/*   const aspect = size.width / viewport.width; */
+  /*   const { size, viewport } = useThree(); */
+  /*   const aspect = size.width / viewport.width; */
 
   useFrame(() => {
     rotY.current.rotation.y += 0.0006;
 
-     /* if (mesh.current) {
+    /* if (mesh.current) {
         rotY.current.position.x = lerp(
           rotY.current.position.x,
           mouse.current[0] / aspect / 10,
@@ -253,7 +251,7 @@ const HTMLContent = ({ domContent, children, bgColor, position }) => {
 function Effect({ down }) {
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
- 
+
   useEffect(
     () => void composer.current.setSize(size.width, size.height),
     [size]
@@ -289,8 +287,6 @@ function MoveLigth({ mouse }) {
 }
 
 const Scene = () => {
-
-
   const [down, set] = useState(false);
   const mouse = useRef([300, -200]);
   const domContent = useRef();
@@ -333,21 +329,21 @@ const Scene = () => {
 
   return (
     <>
-    <Loader />
+      <Loader />
       <Suspense fallback={null}>
         <Canvas
           concurrent
           colorManagement
           camera={{ position: [0, 0, 120], fov: 70 }}
         >
-           <fog attach="fog" args={['#075EA9ed', 400, 700]} />
+          <fog attach="fog" args={["#075EA9ed", 400, 700]} />
           {/*  <Particles count={1000} mouse={mouse} /> */}
           <Lights />
           <MoveLigth mouse={mouse} />
 
           <Home
             domContent={domContent}
-            bgColor="#000000"
+            bgColor="#0c0301"
             position={250}
             mouse={mouse}
           >
@@ -400,24 +396,17 @@ const Scene = () => {
 };
 
 function App() {
-
-  
-  
   return (
     <>
-    
-    
-            <Switch>
-          <Route path="/" exact={true} render={(props) => <Scene />} />
+      <Switch>
+        <Route path="/" exact={true} render={(props) => <Scene />} />
 
-          <Route
-            path="/:id"
-            exact={true}
-            render={(props) => <Page {...props} />}
-          />
-          
-        </Switch>
-        
+        <Route
+          path="/:id"
+          exact={true}
+          render={(props) => <Page {...props} />}
+        />
+      </Switch>
     </>
   );
 }

@@ -147,7 +147,7 @@ var GodRaysGenerateShader = {
 		// Accumulate samples, making sure we dont walk past the light source.
 
 		// The check for uv.y < 1 would not be necessary with "border" UV wrap
-		// mode, with a black border color. I don't think this is currently
+		// mode, with a #0c0301 border color. I don't think this is currently
 		// exposed by three.js. As a result there might be artifacts when the
 		// sun is to the left, right or bottom of screen as these cases are
 		// not specifically handled.
@@ -244,7 +244,7 @@ var GodRaysCombineShader = {
 		'void main() {',
 
 		// Since THREE.MeshDepthMaterial renders foreground objects white and background
-		// objects black, the god-rays will be white streaks. Therefore value is inverted
+		// objects #0c0301, the god-rays will be white streaks. Therefore value is inverted
 		// before being combined with tColors
 
 		'	gl_FragColor = texture2D( tColors, vUv ) + fGodRayIntensity * vec4( 1.0 - texture2D( tGodRays, vUv ).r );',

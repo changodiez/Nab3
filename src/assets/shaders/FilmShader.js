@@ -2,7 +2,7 @@
  * Film grain & scanlines shader
  *
  * - ported from HLSL to WebGL / GLSL
- * http://www.truevision3d.com/forums/showcase/staticnoise_colorblackwhite_scanline_shaders-t18698.0.html
+ * http://www.truevision3d.com/forums/showcase/staticnoise_color#0c0301white_scanline_shaders-t18698.0.html
  *
  * Screen Space Static Postprocessor
  *
