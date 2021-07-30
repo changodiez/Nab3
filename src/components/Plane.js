@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef, Suspense, useState } from "react";
+import React, { useRef, useState } from "react";
 import { extend, useFrame, useLoader, useThree } from "@react-three/fiber";
 import lerp from "lerp";
 import { shaderMaterial } from "@react-three/drei";
@@ -49,10 +49,10 @@ const Plane = ({ mouse }) => {
         : (ref.current.uAlpha = lerp(ref.current.uAlpha, 0.0, 0.1));
 
       if (
-        mesh.current.position.x <= mouse.current[0] / aspect - 1 ||
-        mesh.current.position.x >= mouse.current[0] / aspect + 1 &&
-          mesh.current.position.y <= (mouse.current[1] * -1 ) / aspect - 1 ||
-        mesh.current.position.y >= (mouse.current[1] * -1 ) / aspect + 1
+        (mesh.current.position.x <= mouse.current[0] / aspect - 1 ||
+        mesh.current.position.x >= mouse.current[0] / aspect + 1) &&
+          (mesh.current.position.y <= (mouse.current[1] * -1 ) / aspect - 1 ||
+        mesh.current.position.y >= (mouse.current[1] * -1 ) / aspect + 1)
       ) {
         ref.current.uNoiseAmp = lerp(
           ref.current.uNoiseAmp,
@@ -130,10 +130,13 @@ const Plane = ({ mouse }) => {
       // ...
   };
   
-  var textureLoader = new THREE.ImageLoader( textureManager );
+ /*  
+ esto lo tengo que ver para precarga de imagenes 
+ 
+ var textureLoader = new THREE.ImageLoader( textureManager );
   var myTextureArray = [];
   var myTexture = new THREE.Texture();
-  myTextureArray.push( myTexture );
+  myTextureArray.push( myTexture ); */
   
 
   

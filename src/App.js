@@ -7,7 +7,7 @@ import React, {
   useCallback,
 } from "react";
 import { Suspense } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 
 //R3F
@@ -66,8 +66,8 @@ const Ball = (props) => {
 const Model = ({ mouse }) => {
   const mesh = useRef();
   const rotY = useRef();
-  const { size, viewport } = useThree();
-  const aspect = size.width / viewport.width;
+/*   const { size, viewport } = useThree(); */
+/*   const aspect = size.width / viewport.width; */
 
   useFrame(() => {
     rotY.current.rotation.y += 0.0006;
@@ -253,10 +253,7 @@ const HTMLContent = ({ domContent, children, bgColor, position }) => {
 function Effect({ down }) {
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
-  const aspect = useMemo(
-    () => new THREE.Vector2(size.width, size.height),
-    [size]
-  );
+ 
   useEffect(
     () => void composer.current.setSize(size.width, size.height),
     [size]
@@ -292,7 +289,7 @@ function MoveLigth({ mouse }) {
 }
 
 const Scene = () => {
-  const [events, setEvents] = useState();
+
 
   const [down, set] = useState(false);
   const mouse = useRef([300, -200]);
@@ -389,7 +386,6 @@ const Scene = () => {
         id="c"
         ref={scrollArea}
         onScroll={onScroll}
-        {...events}
         onPointerOut={() => set(false)}
         onPointerMove={onMouseMove}
         onPointerUp={() => set(false)}
