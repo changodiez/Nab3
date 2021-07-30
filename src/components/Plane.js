@@ -4,6 +4,7 @@ import { extend, useFrame, useLoader, useThree } from "@react-three/fiber";
 import lerp from "lerp";
 import { shaderMaterial } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
+import Compressor from "compressorjs";
 
 // IMAGES
 import images from "./images";
@@ -120,6 +121,13 @@ const Plane = ({ mouse }) => {
   extend({ WaveShaderMaterial });
 
   const [image, setImage] = useState(images[0]);
+
+  useEffect(() => {
+    for (let i = 0; i < images.length; i++) {
+      setTimeout(setImage(images[i]), 1000);
+      console.log("imagen cargada");
+    }
+  }, []);
 
   const [texture] = useLoader(THREE.TextureLoader, [image]);
 
