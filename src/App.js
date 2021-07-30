@@ -333,7 +333,8 @@ const Scene = () => {
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
+    <Loader />
+      <Suspense fallback={null}>
         <Canvas
           concurrent
           colorManagement

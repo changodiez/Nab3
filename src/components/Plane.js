@@ -123,7 +123,8 @@ const Plane = ({ mouse }) => {
 
   const [texture] = useLoader(THREE.TextureLoader, [image]);
 
- 
+  let links = document.querySelectorAll("li");
+
   links.forEach((link, idx) => {
     link.addEventListener("mouseover", () => {
       setImage(images[idx]);
