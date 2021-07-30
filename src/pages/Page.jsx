@@ -15,13 +15,19 @@ function Page() {
   let w = window.innerWidth;
   let h = window.innerHeight;
 
+  let mobile = false;
+
+  if (w < 600) {
+    mobile = true
+  }
+
   return (
-    <div id="page">
+    <div id={mobile ? "page-mobile" : "page"}>
       <nav>
         <Link to="/">Volver</Link>
       </nav>
       <div className="info">
-        <div className="hero">
+        <div className= "hero">
           <div className="hero-left">
             <div className="title">{pag.title} </div>
             <div className="comentario">{pag.comentario}</div>
