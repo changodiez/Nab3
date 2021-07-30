@@ -1,10 +1,9 @@
 import * as THREE from "three";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { extend, useFrame, useLoader, useThree } from "@react-three/fiber";
 import lerp from "lerp";
 import { shaderMaterial } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
-import Compressor from "compressorjs";
 
 // IMAGES
 import images from "./images";
@@ -121,21 +120,24 @@ const Plane = ({ mouse }) => {
   extend({ WaveShaderMaterial });
 
   const [image, setImage] = useState(images[0]);
+  
+  const [texture] = useLoader(THREE.TextureLoader, [image]);
+
+  let textures = [];
 
   useEffect(() => {
-    for (let i = 0; i < images.length; i++) {
-      setTimeout(setImage(images[i]), 1000);
-      console.log("imagen cargada");
-    }
+    setImage(images[3])
+    console.log(images[3])
   }, []);
 
-  const [texture] = useLoader(THREE.TextureLoader, [image]);
+ 
 
   let links = document.querySelectorAll("li");
 
   links.forEach((link, idx) => {
     link.addEventListener("mouseover", () => {
       setImage(images[idx]);
+      console.log(texture)
     });
   });
 

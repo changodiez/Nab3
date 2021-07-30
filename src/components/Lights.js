@@ -1,20 +1,14 @@
-import React from 'react'
+import React from "react";
 
 const Lights = () => {
+  return (
+    <>
+      <ambientLight intensity={1} />
+      <directionalLight castShadow position={[-50, -50, -80]} intensity={1} color={"red"} />
+      <directionalLight position={[0, 80, 0]} intensity={1} />
+      <spotLight position={[50, -1, -8]} intensity={1} color={"cyan"} />
+    </>
+  );
+};
 
-
-    return (
-        <>
-        <ambientLight intensity={1} />
-        <directionalLight castShadow 
-        position={[-5, -5, -8]} 
-        intensity={0.6} />
-        <directionalLight position={[0, 80, 0]} intensity={0.1}/>
-        <spotLight position={[5, -1, -8]}  intensity={0.6} color={"cian"}/>
-
-            
-        </>
-    )
-}
-
-export default Lights
+export default Lights;

@@ -9,7 +9,6 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "babel-plugin-glsl": "^1.0.0",
-    "compressorjs": "^1.0.7",
     "glsl-noise": "*",
     "glslify": "^7.1.1",
     "lerp": "^1.0.3",

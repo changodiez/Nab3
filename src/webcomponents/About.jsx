@@ -2,7 +2,6 @@ import React from "react";
 
 function About() {
   let w = window.innerWidth;
-  let h = window.innerHeight;
 
   let mobile = false;
 
