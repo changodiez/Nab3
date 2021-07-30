@@ -7,8 +7,7 @@ import React, {
   useCallback,
 } from "react";
 import { Suspense } from "react";
-import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
-import Page from "./pages/Page";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
 //R3F
@@ -21,7 +20,6 @@ import { softShadows, useGLTF, Html, Loader } from "@react-three/drei";
 import { EffectComposer } from "./assets/postprocessing/EffectComposer.js";
 import { ShaderPass } from "./assets/postprocessing/ShaderPass.js";
 import { RenderPass } from "./assets/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "./assets/postprocessing/UnrealBloomPass.js";
 import { FilmPass } from "./assets/postprocessing/FilmPass.js";
 import { GlitchPass } from "./assets/effects/Glitchpass.js";
 import { WaterPass } from "./assets/effects/Waterpass.js";
@@ -31,6 +29,8 @@ import lerp from "lerp";
 import Contact from "./webcomponents/Contact";
 import About from "./webcomponents/About";
 import Projects from "./webcomponents/Projects.jsx";
+import Page from "./pages/Page";
+
 
 // Styles
 import "./App.scss";
@@ -52,7 +52,6 @@ extend({
   ShaderPass,
   RenderPass,
   WaterPass,
-  UnrealBloomPass,
   FilmPass,
   GlitchPass,
 });
@@ -60,7 +59,7 @@ extend({
 // Model
 
 const Ball = (props) => {
-  const gltf = useGLTF("/PM_Baked_Idea_4-21-20_05.gltf");
+  const gltf = useGLTF("/trash.gltf");
   return <primitive object={gltf.scene} dispose={null} />;
 };
 
@@ -73,28 +72,28 @@ const Model = ({ mouse }) => {
   useFrame(() => {
     rotY.current.rotation.y += 0.0006;
 
-    /*  if (mesh.current) {
+     /* if (mesh.current) {
         rotY.current.position.x = lerp(
           rotY.current.position.x,
-          mouse.current[0] / aspect / 20,
-          0.1
+          mouse.current[0] / aspect / 10,
+          0.0001
         );
         rotY.current.rotation.x = lerp(
           rotY.current.rotation.x,
-          0 + mouse.current[1] / aspect / 50,
-          0.6
+         mouse.current[1] / aspect / 50,
+          0.0005
         );
         rotY.current.rotation.y = lerp(
           rotY.current.position.x,
           mouse.current[0] / aspect / 10,
-          0.1
+          0.0001
         );
       }; */
   });
   return (
     <>
       <group ref={rotY}>
-        <mesh ref={mesh} position={[0, -3.5, 0]} scale={[5, 5, 5]}>
+        <mesh ref={mesh} position={[0, -0.5, 0]} scale={[13, 13, 13]}>
           <Ball />
           <pointLight
             distance={60}
@@ -162,7 +161,7 @@ function Swarm({ count, mouse }) {
   return (
     <>
       <instancedMesh ref={mesh} args={[null, null, count]}>
-        <dodecahedronBufferGeometry attach="geometry" args={[0.2, 0]} />
+        <dodecahedronBufferGeometry attach="geometry" args={[0.4, 0]} />
         <meshStandardMaterial attach="material" color="#050505" />
       </instancedMesh>
     </>
@@ -214,7 +213,7 @@ const Home = ({ domContent, children, bgColor, position, mouse }) => {
       <group position={[0, position, 0]}>
         <mesh ref={rotY} position={[0, -10, 0]} scale={[scale, scale, scale]}>
           <Model mouse={mouse} />
-          <Swarm mouse={mouse} count={2000} />
+          <Swarm mouse={mouse} count={500} />
         </mesh>
         <Html fullscreen portal={domContent}>
           <div ref={refItem} className="container">
@@ -266,7 +265,6 @@ function Effect({ down }) {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
-      {/* <unrealBloomPass attachArray="passes" args={[aspect, 0.8, 0.2, 0]} /> */}
       <filmPass attachArray="passes" args={[0.3, 0.4, 1500, false]} />
       <glitchPass attachArray="passes" factor={down ? 0.6 : 0} />
     </effectComposer>
@@ -289,7 +287,7 @@ function MoveLigth({ mouse }) {
   });
 
   return (
-    <pointLight ref={light} distance={200} intensity={150} color="lightblue" />
+    <pointLight ref={light} distance={100} intensity={15} color="lightblue" />
   );
 }
 
@@ -338,13 +336,14 @@ const Scene = () => {
 
   return (
     <>
-      <Loader />
-      <Canvas
-        concurrent
-        colorManagement
-        camera={{ position: [0, 0, 120], fov: 70 }}
-      >
-        <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
+        <Canvas
+          concurrent
+          colorManagement
+          camera={{ position: [0, 0, 120], fov: 70 }}
+        >
+           <fog attach="fog" args={['#075EA9ed', 400, 700]} />
+          {/*  <Particles count={1000} mouse={mouse} /> */}
           <Lights />
           <MoveLigth mouse={mouse} />
 
@@ -383,9 +382,8 @@ const Scene = () => {
           </HTMLContent>
           <Plane mouse={mouse} />
           <Effect down={down} />
-        </Suspense>
-      </Canvas>
-
+        </Canvas>
+      </Suspense>
       <div
         className="scrollArea"
         id="c"
@@ -406,16 +404,23 @@ const Scene = () => {
 
 function App() {
 
-
-
-
+  
+  
   return (
     <>
-      <Router>
+    
+    
+            <Switch>
+          <Route path="/" exact={true} render={(props) => <Scene />} />
+
+          <Route
+            path="/:id"
+            exact={true}
+            render={(props) => <Page {...props} />}
+          />
+          
+        </Switch>
         
-        <Scene />
-        <Route path="/:id" render={(props) => <Page {...props} />} />
-      </Router>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-// glslify babel-plugin-glsl glsl-noise
-// Install also glsl lint glsl literall
+
 import data from "../assets/data.json";
 
 import Item from "./Item";
@@ -9,7 +8,7 @@ import Item from "./Item";
 function Projects() {
   return (
     <>
-    <Router>
+    
       <div id="projects">
         <ul>
           {data.projects.map((project, index) => (
@@ -19,7 +18,7 @@ function Projects() {
         </ul>
       </div>
       
-      </Router>
+      
     </>
   );
 }

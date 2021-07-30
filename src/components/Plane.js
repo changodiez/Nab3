@@ -119,6 +119,24 @@ const Plane = ({ mouse }) => {
   );
   extend({ WaveShaderMaterial });
 
+
+  var textureManager = new THREE.LoadingManager();
+  textureManager.onProgress = function ( item, loaded, total ) {
+      // this gets called after any item has been loaded
+  };
+  
+  textureManager.onLoad = function () {
+      // all textures are loaded
+      // ...
+  };
+  
+  var textureLoader = new THREE.ImageLoader( textureManager );
+  var myTextureArray = [];
+  var myTexture = new THREE.Texture();
+  myTextureArray.push( myTexture );
+  
+
+  
   const [image, setImage] = useState(images[0]);
 
   const [texture] = useLoader(THREE.TextureLoader, [image]);

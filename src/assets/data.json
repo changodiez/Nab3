@@ -1,40 +1,52 @@
 {
-    "projects": [
-        {
-            "title": "Tensegrity",
-            "link": "tensegrity",
-            "description": "aca va la descripción",
-            "images": ["image1", "image2", "image3"]
-        },
-        {
-            "title": "OPP33",
-            "link": "OPP33",
-            "description": "aca va la descripción",
-            "images": ["image1", "image2", "image3"]
-        },
-        {
-            "title": "Libertadore",
-            "link": "libertadore",
-            "description": "aca va la descripción",
-            "images": ["image1", "image2", "image3"]
-        },
-        {
-            "title": "ER..VA62",
-            "link": "er-va62",
-            "description": "aca va la descripción",
-            "images": ["image1", "image2", "image3"]
-        },
-        {
-            "title": "OBJ.1",
-            "link": "obj-1",
-            "description": "aca va la descripción",
-            "images": ["image1", "image2", "image3"]
-        },
-        {
-            "title": "OBJ.2",
-            "link": "obj-2",
-            "description": "aca va la descripción",
-            "images": ["image1", "image2", "image3"]
-        }
-    ]
+  "projects": [
+    {
+      "title": "Tensegrity",
+      "comentario": "",
+      "link": "tensegrity",
+      "description": "aca va la descripción",
+      "images": ["image1"],
+      "video": ""
+    },
+    {
+      "title": "OP33",
+      "link": "op33",
+      "comentario": "Instalación audiovisual, performance",
+      "description": "Performance encarnada en forma de manifestación que tuvo lugar en Pl.Catalunya (BCN). Se plantea el desacuerdo con políticas, prácticas y legislaturas comerciale que apuestan por la obsolescencia programada de los productos. La performance incluye una pieza coreográfica que orbita alrededor de una composición musical que representa la dinámica dicotómica de las relaciones de deseo y poder entre humano y tecnología.",
+      "images": ["image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10", "image11", "image12"],
+      "video": ""
+    },
+    {
+      "title": "Libertadore",
+      "link": "libertadore",
+      "comentario": "Experiencia multi sensorial inmersiva",
+      "description": "Libertadore es una propuesta que se inspira en la interpretación de una escena de ciencia ficción de la obra “El Libertador” de Herikberto en 1984. Esta escena se desarrolla en una galería de arte contemporáneo, espacio que simboliza la legitimación de las corrientes culturales y escena de intercambio. Este lugar de encuentro plantea el paradigma de la sociedad del espectáculo y el hiperconsumismo: organismos en resistencia y vinculación con el poder y los dualismos superficiales. Las instalaciones y performances exploran la relación entre sensaciones, atmósferas y tecnologías a través de la producción de experiencias estéticas en el espacio - tiempo. Los participantes tienen la posibilidad de filtrarse en la simbiosis de universos compartidos, cuyo núcleo reside en la percepción.",
+      "images": ["image1", "image2", "image3","image4","image5"],
+      "video": ""
+    },
+    {
+      "title": "ER..VA62",
+      "link": "er-va62",
+      "comentario": "Live session audiovisual",
+      "description": "Evento de fusión visual y sonora con carácter demostrativo y festivo en el ciclo ER...VA de Telenoika la edición 62. Proyecciones visuales, lasers, instalaciones lumínicas interactivas y escultura arquitectónica combinado con un live de sintetizadores analógicos que animó a generar de nuevo ambiente de baile y familia entre las invitadas.",
+      "images": ["image1", "image2", "image3","image4","image5"],
+      "video": "https://player.vimeo.com/video/580208390"
+    },
+    {
+      "title": "OBJ.1",
+      "link": "obj-1",
+      "comentario": "Instalación contemplativa audiovisual - MUTEK",
+      "description": "OBJ.1 pretende dar reflexión al espectador sobre el aislamiento y la transparencia. Una escultura neumática reflejante adopta movimientos humanos respirando y dejando mostrar su interior o reflejando su exterior con una combinación de luz natural exterior o escultura lumínica interior. Un baño sonoro diseñado para esta pieza llena el espacio de sonidos binaurales y drone ambience para dar lugar a la reflexión personal multi sensorial sobre el confinamiento, la pandemia y todas sus derivadas.",
+      "images": ["image1", "image2", "image3","image4","image5","image6","image7","image8"],
+      "video": "https://player.vimeo.com/video/580214078"
+    },
+    {
+      "title": "OBJ.2",
+      "link": "obj-2",
+      "comentario": "Live session audiovisual - HRTZ festival",
+      "description": "OBJ.2 resulta de la experimentación con el material y la transparencia. Se fusionaron campos visuales lumínicos (lasers y leds controlados, proyecciones reactivas, estrobos,...) dando profundidad de campo y distintas opacidades al objeto. Live de distintas visuales con live de sintetizadores para dar ambiente y baile a la escultura presentada en la fiesta de cierre del festival HRTZ",
+      "images": ["image1", "image2", "image3"],
+      "video": "https://player.vimeo.com/video/580211808"
+    }
+  ]
 }
