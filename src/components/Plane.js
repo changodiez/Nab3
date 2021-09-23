@@ -126,8 +126,12 @@ const Plane = ({ mouse }) => {
   let textures = [];
 
   useEffect(() => {
-    setImage(images[3])
-    console.log(images[3])
+
+    for  (let i=0 ; i < images.length ; i++){
+      setImage(images[i])
+    }
+    
+    
   }, []);
 
  
@@ -137,7 +141,6 @@ const Plane = ({ mouse }) => {
   links.forEach((link, idx) => {
     link.addEventListener("mouseover", () => {
       setImage(images[idx]);
-      console.log(texture)
     });
   });
 
