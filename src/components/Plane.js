@@ -119,30 +119,30 @@ const Plane = ({ mouse }) => {
   );
   extend({ WaveShaderMaterial });
 
-  const [image, setImage] = useState(images[0]);
-  
-  const [texture] = useLoader(THREE.TextureLoader, [image]);
+  //TEXTURES 
 
-  let textures = [];
-
-  useEffect(() => {
-
-    for  (let i=0 ; i < images.length ; i++){
-      setImage(images[i])
-    }
-    
-    
-  }, []);
 
  
+  
+  const [texture1, texture2, texture3, texture4, texture5, texture6 ] = useLoader(THREE.TextureLoader, [images[0],images[1],images[2],images[3],images[4],images[5] ]);
+
+ 
+  let textures = [texture1, texture2, texture3, texture4, texture5, texture6];
+
+  const [image, setImage] = useState(textures[0]);
+
 
   let links = document.querySelectorAll("li");
 
   links.forEach((link, idx) => {
     link.addEventListener("mouseover", () => {
-      setImage(images[idx]);
+      setImage(textures[idx]);
     });
+    console.log(image)
   });
+
+
+  
 
   return (
     <>
@@ -151,7 +151,7 @@ const Plane = ({ mouse }) => {
         <waveShaderMaterial
           ref={ref}
           attach="material"
-          uTexture={texture}
+          uTexture={image}
           transparent={true}
         />
       </mesh>
