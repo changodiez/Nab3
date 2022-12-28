@@ -8,7 +8,7 @@ function Contact() {
       <section id="contacto" className="contacto">
         <div className="contact-containar">
           <a href="mailto:na.b3collective@gmail.com">
-            <h3 className="mail">na.b3collective@gmail.com</h3>
+            <h3 className="mail">hello@nab3.es</h3>
           </a>
         </div>
         <div className="contact-containar">
