@@ -138,7 +138,7 @@ const Plane = ({ mouse }) => {
     link.addEventListener("mouseover", () => {
       setImage(textures[idx]);
     });
-    console.log(image)
+
   });
 
 
