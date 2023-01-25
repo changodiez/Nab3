@@ -32,43 +32,52 @@ const Plane = ({ mouse }) => {
   }
 
   useFrame(({ clock }) => {
-    if (mesh.current) {
+
+    
+    
       ref.current.uTime = 0;
       mesh.current.position.x = lerp(
         mesh.current.position.x,
         mouse.current[0] / aspect,
-        0.1
+        0.07
       );
+
+     
+
       mesh.current.position.y = lerp(
         mesh.current.position.y,
         (mouse.current[1] / aspect) * -1,
-        0.1
+        0.07
       );
       hovered
         ? (ref.current.uAlpha = lerp(ref.current.uAlpha, 1.0, 0.1))
         : (ref.current.uAlpha = lerp(ref.current.uAlpha, 0.0, 0.1));
 
       if (
-        (mesh.current.position.x <= mouse.current[0] / aspect - 1 ||
-          mesh.current.position.x >= mouse.current[0] / aspect + 1) &&
-        (mesh.current.position.y <= (mouse.current[1] * -1) / aspect - 1 ||
-          mesh.current.position.y >= (mouse.current[1] * -1) / aspect + 1)
+        ((Math.abs(mesh.current.position.x) - Math.abs( mouse.current[0] / aspect - 1 ) ) >= 2) ||
+        ((Math.abs(mesh.current.position.y) - Math.abs( mouse.current[1] / aspect - 1 ) ) >= 2)
       ) {
+
+        console.log("mesh",  mesh.current.position.x) 
+        console.log("mouse",  mouse.current[0] / aspect - 1)
         ref.current.uNoiseAmp = lerp(
           ref.current.uNoiseAmp,
-          0.02 + mouse.current[0] * mouse.current[1] * -0.00002,
+          0.02 + mouse.current[0] * mouse.current[1]  * 0.00002,
           0.1
         );
         ref.current.uNoiseFreq = lerp(
           ref.current.uNoiseFreq,
-          0.3 + mouse.current[0] * mouse.current[1] * 0.00005,
+          0.3 + mouse.current[0] *  mouse.current[1] * 0.000005,
           0.1
         );
-      } else {
+      } else if (
+        ((Math.abs(mesh.current.position.x) - Math.abs( mouse.current[0] / aspect - 1 ) ) <= 2) ||
+        ((Math.abs(mesh.current.position.y) - Math.abs( mouse.current[1] / aspect - 1 ) ) <=2)
+      ) {
         ref.current.uNoiseAmp = lerp(ref.current.uNoiseAmp, 0.0, 0.1);
         ref.current.uNoiseFreq = lerp(ref.current.uNoiseFreq, 0.0, 0.1);
       }
-    }
+    
   });
 
   const WaveShaderMaterial = shaderMaterial(
@@ -95,7 +104,7 @@ const Plane = ({ mouse }) => {
     vec3 pos = position;
     float noiseFreq = uNoiseFreq;
     float noiseAmp = uNoiseAmp;
-    vec3 noisePos = vec3(pos.x * noiseFreq + uTime, pos.y, pos.z);
+    vec3 noisePos = vec3(pos.z * noiseFreq + uTime, pos.y, pos.x);
     pos.z += snoise3(noisePos) * noiseAmp;
     vWave = pos.z;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);  

@@ -85,7 +85,7 @@ const Model = ({ mouse }) => {
         rotY.current.rotation.x = lerp(
           rotY.current.rotation.x,
          mouse.current[1] / aspect / 50,
-          0.0005
+          0.0001
         );
       }
 
@@ -361,7 +361,8 @@ const Scene = () => {
           colorManagement
           camera={{ position: [0, 0, 120], fov: 70 }}
         >
-          <fog attach="fog" args={["#075EA9ed", 400, 700]} />
+          <fog attach="fog" args={[
+"rgba(94,169,237,1)", 400, 700]} />
           <Lights />
           <MoveLigth mouse={mouse} />
 

@@ -95,7 +95,7 @@ const Bola = ({ mouse }) => {
     float noiseAmp = uNoiseAmp;
     vec3 noisePos = vec3(pos.x * noiseFreq + uTime, pos.y  * noiseFreq + uTime, pos.z  * noiseFreq + uTime);
     pos.z += snoise3(noisePos) * noiseAmp;
-    vWave = pos.z;
+    vWave = pos.x;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);  
   }
 `,
