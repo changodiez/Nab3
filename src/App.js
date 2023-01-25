@@ -8,12 +8,18 @@ import React, {
 } from "react";
 import { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import { useLoader } from "@react-three/fiber";
 
 //R3F
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 
 // Deai - R3F
 import { softShadows, useGLTF, Html, Loader } from "@react-three/drei";
+import {
+  MeshDistortMaterial,
+  MeshWobbleMaterial,
+  Sphere
+} from "@react-three/drei";
 
 //Effects
 import { EffectComposer } from "./assets/postprocessing/EffectComposer.js";
@@ -35,13 +41,13 @@ import "./App.scss";
 
 import Lights from "./components/Lights";
 import Plane from "./components/Plane.js";
+import Bola from "./components/Bola.js";
 
 // Scroll
 import { Section } from "./components/section";
 import state from "./components/state";
 import { useInView } from "react-intersection-observer";
-
-import logo from "./assets/logo.svg"
+import { ShaderMaterial } from "three";
 
 // soft Shadows
 softShadows();
@@ -66,41 +72,58 @@ const Ball = (props) => {
 const Model = ({ mouse }) => {
   const mesh = useRef();
   const rotY = useRef();
-  /*   const { size, viewport } = useThree(); */
-  /*   const aspect = size.width / viewport.width; */
+
+  const { size, viewport } = useThree();
+  const aspect = size.width / viewport.width;
 
   useFrame(() => {
-    rotY.current.rotation.y += 0.0006;
+    /* rotY.current.rotation.y += 0.0006; */
 
-    /* if (mesh.current) {
-        rotY.current.position.x = lerp(
-          rotY.current.position.x,
-          mouse.current[0] / aspect / 10,
-          0.0001
-        );
+    if (mesh.current) {
+
+      if(mesh.current.rotation.x < 1) {
         rotY.current.rotation.x = lerp(
           rotY.current.rotation.x,
          mouse.current[1] / aspect / 50,
           0.0005
         );
+      }
+
+      if(mesh.current.rotation.y < 1) {
         rotY.current.rotation.y = lerp(
           rotY.current.position.x,
           mouse.current[0] / aspect / 10,
           0.0001
         );
-      }; */
+      }
+      /*   rotY.current.position.x = lerp(
+          rotY.current.position.x,
+          mouse.current[0] / aspect / 10,
+          0.0001
+        ); */
+        
+       
+      };
+
+        //TEXTURES 
+
+
+ 
+  
   });
   return (
     <>
       <group ref={rotY}>
-        <mesh ref={mesh} position={[0, -0.5, 0]} scale={[13, 13, 13]}>
-          <Ball />
+        <mesh ref={mesh} position={[0, 1.5, 0]} scale={[13, 13, 13]}>
+          <Bola mouse={mouse} /> 
           <pointLight
             distance={60}
             intensity={10}
-            color="lightblue"
+            color="pink"
           ></pointLight>
+      
         </mesh>
+      
       </group>
     </>
   );
@@ -182,7 +205,7 @@ const Home = ({ domContent, children, bgColor, position, mouse }) => {
   }
 
   useFrame(() => {
-    rotY.current.rotation.y += 0.006;
+    
     if (mesh.current) {
       mesh.current.position.x = lerp(
         mesh.current.position.x,
@@ -284,7 +307,7 @@ function MoveLigth({ mouse }) {
   });
 
   return (
-    <pointLight ref={light} distance={100} intensity={15} color="lightblue" />
+    <pointLight ref={light} distance={100} intensity={15} color="pink" />
   );
 }
 
@@ -339,7 +362,6 @@ const Scene = () => {
           camera={{ position: [0, 0, 120], fov: 70 }}
         >
           <fog attach="fog" args={["#075EA9ed", 400, 700]} />
-          {/*  <Particles count={1000} mouse={mouse} /> */}
           <Lights />
           <MoveLigth mouse={mouse} />
 
