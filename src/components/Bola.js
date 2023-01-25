@@ -1,78 +1,65 @@
 import * as THREE from "three";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { extend, useFrame, useLoader, useThree } from "@react-three/fiber";
 import lerp from "lerp";
 import { shaderMaterial } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
 
-  
-  // IMAGES
-  import goldi from "../assets/images/goldi.jpg";
-
-
-
+// IMAGES
+import goldi from "../assets/images/goldi.jpg";
 
 const Bola = ({ mouse }) => {
   const mesh = useRef();
   const ref = useRef();
   const { size, viewport } = useThree();
   const aspect = size.width / viewport.width;
- 
+
   useFrame(({ clock }) => {
     if (mesh.current) {
-      ref.current.uTime += 0.001;
+      let distancia, x1, x2, y1, y2;
 
+      x1 = mesh.current.position.x;
+      x2 = mouse.current[0] / aspect;
+      y1 = mesh.current.position.y;
+      y2 = (mouse.current[1] / aspect) * -1;
+      distancia = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 
-    
-       mesh.current.position.x = lerp(
+      ref.current.uTime += 0.003 * +distancia * 0.01;
+
+      mesh.current.position.x = lerp(
         mesh.current.position.x,
         mouse.current[0] / 100000,
-        0.01
+        0.05
       );
       mesh.current.position.y = lerp(
         mesh.current.position.y,
         (mouse.current[1] / 100000) * -1,
-        0.01
+        0.05
       );
 
-      
-
-    
-      let distancia, x1, x2, y1, y2;
-
-    x1 = mesh.current.position.x
-    x2 =  mouse.current[0] / aspect
-    y1 = mesh.current.position.y
-    y2 = mouse.current[1] / aspect 
-    distancia=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
-   
-      if (
-        (distancia + 10) >= 0
-      ) {
-
-     
-
+      if (distancia + 10 >= 0) {
         ref.current.uNoiseAmp = lerp(
           ref.current.uNoiseAmp,
-          0.5 + distancia * distancia  * 0.00002,
+          0.5 + distancia * distancia * 0.00002,
           0.1
         );
         ref.current.uNoiseFreq = lerp(
           ref.current.uNoiseFreq,
-          0.5  + distancia * distancia * 0.00003,
+          0.5 + distancia * distancia * 0.00003,
           0.1
         );
       } else {
         ref.current.uNoiseAmp = lerp(ref.current.uNoiseAmp, 0.0, 0.1);
         ref.current.uNoiseFreq = lerp(ref.current.uNoiseFreq, 0.0, 0.1);
       }
+      ref.current.uPos = mesh.current.position
     }
   });
-    
+
   const WaveShaderMaterial = shaderMaterial(
     // Uniform
     {
-      uTime: 0,
+      uTime: 1,
       uColor: new THREE.Color(0.0, 0.0, 0.0),
       uTexture: new THREE.Texture(),
       uAlpha: 1,
@@ -83,6 +70,7 @@ const Bola = ({ mouse }) => {
     glsl`
   precision mediump float;
   varying vec2 vUv;
+  varying vec3 vNormal;
   varying float vWave;
   uniform float uTime;
   uniform float uNoiseFreq;
@@ -90,6 +78,7 @@ const Bola = ({ mouse }) => {
   #pragma glslify: snoise3 = require(glsl-noise/simplex/3d);
   void main() {
     vUv = uv;
+    vNormal = normal;
     vec3 pos = position;
     float noiseFreq = uNoiseFreq;
     float noiseAmp = uNoiseAmp;
@@ -108,24 +97,26 @@ const Bola = ({ mouse }) => {
   uniform sampler2D uTexture;
   varying vec2 vUv;
   varying float vWave;
+  varying vec3 vNormal;
   void main() {
     float wave = vWave * 0.1;
-    vec3 texture = texture2D(uTexture, vUv + wave).rgb;
-    gl_FragColor = vec4(texture, uAlpha); 
+     vec3 normal=vNormal;
+    float diffuse = dot(normal, vec3 (1.));
+    vec4 texture = texture2D(uTexture, vUv + wave);
+    gl_FragColor = texture * diffuse; 
+   // gl_FragColor = vec4(diffuse); 
   }
 `
   );
   extend({ WaveShaderMaterial });
-    
+
   const texture1 = useLoader(THREE.TextureLoader, goldi);
 
-
-
-    return (
-     <>
-     <mesh 
-     scale={[0.31, 0.31, 0.31]}
-     ref={mesh}
+  return (
+    <>
+      <mesh
+        scale={[0.31, 0.31, 0.31]}
+        ref={mesh}
         visible // object gets render if true
         castShadow // Sets whether or not the object cats a shadow
         // There are many more props.....
@@ -139,13 +130,10 @@ const Bola = ({ mouse }) => {
           uTexture={texture1}
           castShadow
         />
+     
       </mesh>
-
-      </>
-    )
-}
-
-
- 
+    </>
+  );
+};
 
 export default Bola;

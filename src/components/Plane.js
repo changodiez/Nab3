@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { extend, useFrame, useLoader, useThree } from "@react-three/fiber";
 import lerp from "lerp";
 import { shaderMaterial } from "@react-three/drei";
@@ -32,17 +32,14 @@ const Plane = ({ mouse }) => {
   }
 
   useFrame(({ clock }) => {
-
-    
+  
     
       ref.current.uTime = 0;
       mesh.current.position.x = lerp(
         mesh.current.position.x,
         mouse.current[0] / aspect,
         0.07
-      );
-
-     
+      );     
 
       mesh.current.position.y = lerp(
         mesh.current.position.y,

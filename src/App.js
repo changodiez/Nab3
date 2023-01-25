@@ -8,18 +8,12 @@ import React, {
 } from "react";
 import { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import { useLoader } from "@react-three/fiber";
 
 //R3F
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 
 // Deai - R3F
 import { softShadows, useGLTF, Html, Loader } from "@react-three/drei";
-import {
-  MeshDistortMaterial,
-  MeshWobbleMaterial,
-  Sphere
-} from "@react-three/drei";
 
 //Effects
 import { EffectComposer } from "./assets/postprocessing/EffectComposer.js";
@@ -47,7 +41,7 @@ import Bola from "./components/Bola.js";
 import { Section } from "./components/section";
 import state from "./components/state";
 import { useInView } from "react-intersection-observer";
-import { ShaderMaterial } from "three";
+
 
 // soft Shadows
 softShadows();
@@ -64,10 +58,10 @@ extend({
 
 // Model
 
-const Ball = (props) => {
+/* const Ball = (props) => {
   const gltf = useGLTF("/trash.gltf");
   return <primitive object={gltf.scene} dispose={null} />;
-};
+}; */
 
 const Model = ({ mouse }) => {
   const mesh = useRef();
@@ -84,16 +78,16 @@ const Model = ({ mouse }) => {
       if(mesh.current.rotation.x < 1) {
         rotY.current.rotation.x = lerp(
           rotY.current.rotation.x,
-         mouse.current[1] / aspect / 50,
-          0.0001
+         mouse.current[1] / aspect / 300,
+          0.1
         );
       }
 
       if(mesh.current.rotation.y < 1) {
         rotY.current.rotation.y = lerp(
-          rotY.current.position.x,
-          mouse.current[0] / aspect / 10,
-          0.0001
+          rotY.current.position.y,
+          mouse.current[0] / aspect / 300,
+          0.1
         );
       }
       /*   rotY.current.position.x = lerp(
@@ -116,6 +110,13 @@ const Model = ({ mouse }) => {
       <group ref={rotY}>
         <mesh ref={mesh} position={[0, 1.5, 0]} scale={[13, 13, 13]}>
           <Bola mouse={mouse} /> 
+          <meshStandardMaterial
+          attach="material" // How the element should attach itself to its parent
+          color="#7222D3" // The color of the material
+          transparent // Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects. When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.
+          roughness={0.1} // The roughness of the material - Defaults to 1
+          metalness={0.1} // The metalness of the material - Defaults to 0
+        />
           <pointLight
             distance={60}
             intensity={10}
