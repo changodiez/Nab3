@@ -26,11 +26,17 @@ const Bola = ({ mouse }) => {
 
       ref.current.uTime += 0.003 * +distancia * 0.01;
 
-      mesh.current.position.x = lerp(
-        mesh.current.position.x,
+      ref.current.rotation = lerp(
+        ref.current.rotation,
+       mouse.current[1] / aspect / 3,
+        0.1
+      );
+      mesh.current.rotation.x = lerp(
+        mesh.current.rotation.x,
         mouse.current[0] / 100000,
         0.05
       );
+
       mesh.current.position.y = lerp(
         mesh.current.position.y,
         (mouse.current[1] / 100000) * -1,

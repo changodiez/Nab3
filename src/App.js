@@ -355,6 +355,7 @@ const Scene = () => {
 
   return (
     <>
+    <div id="contenedor">
       <Loader />
       <Suspense fallback={null}>
         <Canvas
@@ -416,6 +417,7 @@ const Scene = () => {
       >
         <div style={{ position: "sticky", top: 0 }} ref={domContent} />
         <div style={{ height: `${state.pages * 100}vh`, width: "100%" }} />
+      </div>
       </div>
     </>
   );

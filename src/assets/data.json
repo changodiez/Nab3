@@ -47,6 +47,14 @@
       "description": "OBJ.2 resulta de la experimentación con el material y la transparencia. Se fusionaron campos visuales lumínicos (lasers y leds controlados, proyecciones reactivas, estrobos,...) dando profundidad de campo y distintas opacidades al objeto. Live de distintas visuales con live de sintetizadores para dar ambiente y baile a la escultura presentada en la fiesta de cierre del festival HRTZ",
       "images": ["image1", "image2", "image3"],
       "video": "https://player.vimeo.com/video/580211808"
+    },
+    {
+      "title": "PLANT#01",
+      "link": "plant-01",
+      "comentario": "Planta, estructura y luz.",
+      "description": "Exploración sobre sistemas donde los pequeños elementos pueden tener una gran influencia en el desarrollo general. Una planta, de tamaño relativamente pequeño, se convierte en el centro de la instalación, tanto en su geometría como en su funcionamiento interno. Materiales: planta y jarrón proporcionados por Akasha, estructura truss recuperada y accesorios de iluminación LED desarrollados internamente.",
+      "images": ["image1", "image2", "image3"],
+      "video": "https://player.vimeo.com/video/799240422"
     }
   ]
 }

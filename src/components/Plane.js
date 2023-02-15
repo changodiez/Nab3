@@ -130,10 +130,10 @@ const Plane = ({ mouse }) => {
 
  
   
-  const [texture1, texture2, texture3, texture4, texture5, texture6 ] = useLoader(THREE.TextureLoader, [images[0],images[1],images[2],images[3],images[4],images[5] ]);
+  const [texture1, texture2, texture3, texture4, texture5, texture6, texture7 ] = useLoader(THREE.TextureLoader, [images[0],images[1],images[2],images[3],images[4],images[5],images[6] ]);
 
  
-  let textures = [texture1, texture2, texture3, texture4, texture5, texture6];
+  let textures = [texture1, texture2, texture3, texture4, texture5, texture6, texture7];
 
   const [image, setImage] = useState(textures[0]);
 
